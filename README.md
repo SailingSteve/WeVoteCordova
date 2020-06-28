@@ -25,22 +25,26 @@ the Android install for Mac will be very similar to what you need.
 If you haven't done this yet, don't waste your time, go setup the WebApp with current code,
 and get it to start up at least once, and then return here when you are done.
 
-One more step with the WebApp: Build the WebApp at least once with 'npm run prod-singleBundle' since this will copy all
+One more step with the WebApp: Build the WebApp at least once with `npm run prod-singleBundle` since this will copy all
 the image files and css into the build directory.  If you skip this step, all the WebApp images and css might be broken in Cordova.
 
 If you can't find a file called `WebApp/build/bundle.js` on your machine, don't proceed
 until you can find it.
 
+Once you have the WebApp running in Cordova on your machine, you will want to start a continous Webpack server
+running with `npm run start-https-singleBundle` -- this will continuously rebuild the bundle.js, but the
+bundle will only be included into the Cordova run, when you restart the simulator in iOS or Android.
+
+
 ## Directories
 
-If you followed the instructions for installing the WebApp you put your code at
+If you followed the instructions for installing the WebApp, you put your code at `/Users/<YOUR NAME HERE>/MyProjects/WebApp`.  For our 
+example machine that would be:
 ```
-    /Users/<YOUR NAME HERE>/MyProjects/WebApp
-    
-    or in the specific case of the Example machine:
-    
     /Users/stevepodell/WebstormProjects/WebApp
 ```
+
+As you go through these instructions, you will have to substiute  your actual paths for those shown on the example machine.
 
 <!--
 ## Symlinks
@@ -62,11 +66,7 @@ Studio for Android).
 
 ## Install our Code and the Cordova Libraries
 
-1. Change to your base "MyProjects" equivalent directory
-   ```
-   cd /Users/your-username/MyProjects
-   ```
-   Example: on the example machine the full command line is...
+1. Change to your base "MyProjects/WeVoteCordova" equivalent directory
    ```
    cd  /Users/stevepodell/WebstormProjects/WeVoteCordova
    ```
@@ -86,7 +86,7 @@ Studio for Android).
     sudo npm uninstall -g cordova
     sudo npm install -g cordova
     ```
-    Example: on the example machine that looks like...
+    Example: 
     ```
     stevepodell@Steves-MacBook-Pro WeVoteCordova % sudo npm install -g cordova
     Password:
@@ -104,30 +104,27 @@ Studio for Android).
        │                                                                │
        ╰────────────────────────────────────────────────────────────────╯
     
-    stevepodell@Steves-MacBook-Pro WeVoteCordova % cordova -v
-    9.0.0 (cordova-lib@9.0.1)
     stevepodell@Steves-MacBook-Pro WeVoteCordova % 
     ```    
-
-    Please save in your notes, the path/symlink where cordova is installed. (ex/ `/usr/local/Cellar/node/12.5.0/bin/cordova`)
-
     Do not proceed until you are at V9, or higher.  
     ```    
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cordova -v
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cordova -v
     9.0.0 (cordova-lib@9.0.1)
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
     ```
     
     (The example machine had a symlink in `/usr/local/bin/` that did not point to where the Cordova 9 was installed earlier in this step, and that 
     symlink had to be manually fixed.)
 
-    a. `cordova` is not added automatically to your path. You might need to run from the symlink you saved above (ex/ `/usr/local/Cellar/node/12.5.0/bin/cordova`)
+    a. If `cordova` is not added automatically to your path. You might need to run from the symlink you saved above (ex/ `/usr/local/Cellar/node/12.5.0/bin/cordova`)
      
     b. You might be asked: `? May Cordova anonymously report usage statistics to improve the tool over time? (Y/n)` -- that is your choice, either choice is fine.
 
     ```
 
-1.  Run the (destructive) Cordova CLI commands from within the `WeVoteCordova` directory. 
+1.  Run the Cordova CLI commands from within the `WeVoteCordova` directory. 
+This will guarantee that you have freshly loaded all the code for the Cordova Plugins that we use.
+
     ```
     cordova platform rm ios android
     cordova platform add ios android
@@ -212,27 +209,23 @@ Studio for Android).
     git remote -v
     ```
 
-1. Run npm install (it doesn't hurt to do this multiple times!)
+1. Run `npm install` (it doesn't hurt to do this multiple times!)
     ```
-    npm install
-
-   on the example machine...
-   
-   Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ npm install
+   Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ npm install
    npm WARN org.wevote.cordova@1.0.0 No repository field.
     
    added 144 packages from 98 contributors and audited 357 packages in 3.698s
    found 2 vulnerabilities (1 low, 1 moderate)
      run `npm audit fix` to fix them, or `npm audit` for details
-   Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
+   Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
    ```
    At this point, don't worry about any reported vulnerabilites, and don't try to fix 
    them at this moment.
 
+1.  Make sure you are in the WeVoteCordova directory and run the `buildSymLinks.js` script.  This allows the 
+Cordova build/run process to use the code from the WebApp, by symbolicly linking the files from the WebApp into the WeVoteCordova directory.  
 
-1.  Make sure you are in the WeVoteCordova directory and run the buildSymLinks.js script.  This allows the 
-Cordova build/run process to use the code from the WebApp.
-
+    Run the buildSymLinks.js file with Node, and pass in as a parameter the path to your WebApp's build directory.  See the following example, from the example machine.
     ```
     stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % pwd
     /Users/stevepodell/WebstormProjects/WeVoteCordova
@@ -260,11 +253,9 @@ Cordova build/run process to use the code from the WebApp.
 
 # Platform specific iOS setup (Skip this section if your computer is running Windows or Linux)
 
-Throughout these instructions, remember to substitute your actual user name for "your-username"!
-
 1.  Confirm that the symlinks are in place for iOS
 
-    iOS serves the bundle.js, the index.html, and other files from `WeVoteCordova/platforms/ios/www`
+    Cordova iOS serves the bundle.js, the index.html, and other files from `WeVoteCordova/platforms/ios/www`
     buildSymLinks script should have setup the ios www directory will have changed as follows...
 
     ```
@@ -281,7 +272,7 @@ Throughout these instructions, remember to substitute your actual user name for 
     lrwxr-xr-x   1 stevepodell  staff     64 Jun 25 14:52 index.html -> /Users/stevepodell/WebstormProjects/WeVoteCordova/www/index.html
     drwxr-xr-x   3 stevepodell  staff     96 Jun 24 09:24 js
     drwxr-xr-x  12 stevepodell  staff    384 Jun 24 09:36 plugins
-stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % 
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % 
     ```
         
 1.  You should test each one of those links, to make sure that they really point to where it needs to. It is much easier 
@@ -290,14 +281,14 @@ that the link points to a sizeable file (17856048 bytes in the case of bundle.js
 100 bytes, then the link is probably incorrect.  Use `ls` to make sure that the links for directories, contain a few files.
 
     ```
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ pwd
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ pwd
     /Users/stevepodell/WebStormProjects/WeVoteCordova/platforms/ios/www
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ stat -L bundle.js
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ stat -L bundle.js
     16777220 134276137 -rw-r--r-- 1 stevepodell staff 0 26625098 "Nov 11 14:12:26 2019" "Nov 10 16:50:44 2019" "Nov 11 14:11:21 2019" "Nov 10 16:50:43 2019" 4096 52008 0 bundle.js
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls css
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ls css
     bootstrap-social.css    loading-screen.css      main.css
     bootstrap-social.css    loading-screen.css      main.css
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls img
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ls img
     Dale_McGrew-200x200.jpg                         global                                          mixed-rating-icon.svg                           thumbs-down-icon.svg                            we-vote-logo-horizontal-color-200x66.svg
     WelcomeForVoters-Ballot-20190507.png            glyphicons-halflings-88-remove-circle.svg       no-position-icon.svg                            thumbs-up-color-icon.svg                        we-vote-logo-horizontal-color-dark-141x46.svg
     avatar-generic.svg                              google-logo.svg                                 organization-icon.svg                           thumbs-up-icon.svg                              welcome
@@ -305,7 +296,7 @@ that the link points to a sizeable file (17856048 bytes in the case of bundle.js
     down-arrow-color-icon.svg                       how-it-works                                    public-icon.svg                                 up-arrow-color-icon.svg
     endorsement-extension                           issue-generic.svg                               share-icon.svg                                  vip-logo-1000x208.png
     ffwd-logo.png                                   issue-photo-generic.svg                         thumbs-down-color-icon.svg                      vote_dot_org_logo-530x200.png
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ 
     ```
 
 **You are now done with the iOS specific setup.**
@@ -313,7 +304,7 @@ that the link points to a sizeable file (17856048 bytes in the case of bundle.js
 
 # Platform specific Android setup (Everyone should install the Android software)
 
-1. Confim that buildSymLinks setup the iOS www directory properly
+1. Confim that `buildSymLinks` has setup the android www directory properly
    ```
    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % ls -la platforms/android/app/src/main/assets/www
    total 136
@@ -337,15 +328,15 @@ that the link points to a sizeable file (17856048 bytes in the case of bundle.js
 100 bytes, then the link is probably incorrect.  Use `ls` to make sure that the links for directories, contain a few files.
 
     ```
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ pwd
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ pwd
     /Users/stevepodell/WebstormProjects/WeVoteCordova/platforms/android/app/src/main/assets/www
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ stat -L bundle.js 
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ stat -L bundle.js 
     16777220 134276137 -rw-r--r-- 1 stevepodell staff 0 26625098 "Nov 11 14:33:16 2019" "Nov 10 16:50:44 2019" "Nov 11 14:11:21 2019" "Nov 10 16:50:43 2019" 4096 52008 0 bundle.js
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls css
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ls css
     bootstrap-social.css    loading-screen.css      main.css
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls img
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ls img
     endorsement-extension   endorsement-icon48.png  global                  how-it-works            sierra.pdf              tools                   welcome
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ head index.html
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ head index.html
     <!DOCTYPE html>
     <!--
         index.html for WeVoteCordova
@@ -356,7 +347,7 @@ that the link points to a sizeable file (17856048 bytes in the case of bundle.js
            WeVoteCordova/www/index.html
     
     -->
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ 
     ```
 
 **You are now done with the Android specific setup.**
@@ -367,12 +358,12 @@ that the link points to a sizeable file (17856048 bytes in the case of bundle.js
 
 It is possible to develop for Cordova without IDEs, but you are on your own if you take that path.
 An important note about both IDEs, is that they are "needed" for running and debugging iOS and Android apps, but there
-is no need to setup GIT in either of them, all the changes that you make within the IDEs affect files that are in the WeVoteCordova 
-directory that you just made.  Checkin any changes from the WeVoteCordova directory with the same tools you use to develope
+is no need to setup GIT in either of them, all the changes that you make within the IDEs alter files that are in the WeVoteCordova 
+directory that you just made.  Checkin any changes from the WeVoteCordova directory with the same tools you use to develop
 the webapp.  Most Cordova changes in this mature app, are version upgrades of included packages, and version changes for the
 apps we deploy in the Apple iOS App Store and the Google Android Play Store.
 
-Install Apple Xcode from the MacOS App Store, you will need a Mac for the iOS part of this project, and a Mac will also be
+Install Apple Xcode from the MacOS App Store, you will need a Mac for the iOS part of this project, and that same Mac will also be
 fine for Android development.
 
 For Android, install the [Android Studio](https://developer.android.com/studio/index.html)
@@ -394,14 +385,14 @@ For Android, install the [Android Studio](https://developer.android.com/studio/i
     
     On a machine where node may already have been installed, we want to have version 10 or heigher:
     ```
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ node -v
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ node -v
     v11.14.0
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ brew upgrade node
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ brew upgrade node
     Updating Homebrew...
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ node -v
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ node -v
     v12.12.0
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
     ```
 <!--
 As of June 2020, Cordova installs cocoapods for you
@@ -461,6 +452,7 @@ After clicking the "Open another project..." button, select the `WeVoteCordova.x
 ![ScreenShot](docs/images/WeVoteCordova.xcworkspace.png)
 
 
+Select a simulator type from the menu on top (I use iPhone 8p in this example), then press the triangular green play button,
 Select a simulator type from the menu on top (I use iPhone 8p in this example), then press the triangular green play button,
 and the app starts in the simulator.
 
@@ -531,9 +523,11 @@ bundle.js in 20 seconds (Two seconds to gather all the js scripts together, and 
 1. Press the play button in Xcode, which should start the Simulator, load, and then start the WeVote WebApp.
 1. In Safari open Develop/Simulator/WeVoteCordova/WeVote and the Safari Web Inspector appears.
 
-## Debugging Cordova Apps with the Chrome dev tools
+<!--
+June 2020:  This is a needless complexity, the Safari debugger has greatly improved and is all you need for debugging Cordova iOS
+## Debugging Cordova iOS Apps with the Chrome dev tools
 
-Chrome devtools is more familiar than the Safari debugger, but is a bit challenging to get working. See ...
+Chrome devtools is more familiar to We Vote WebApp developers, than the Safari debugger, but is a bit challenging to get working. See ...
 
 [medium.com article about the remotedebug-ios-webkit-adapter for debugging WebViews](https://medium.com/@auchenberg/hello-remotedebug-ios-webkit-adapter-debug-safari-and-ios-webviews-from-anywhere-2a8553df7465)
 
@@ -589,7 +583,7 @@ reload button" (see the following image) that will allow you to restart the app 
 the current breakpoints.
 
 ![ScreenShot](docs/images/ChromeCircularReloadButton.png)
-
+-->
 
 ## WebApp code changes needed to support Cordova
 

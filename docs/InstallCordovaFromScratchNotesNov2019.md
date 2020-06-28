@@ -3,10 +3,10 @@ Rebuild From Scratch
 ## MUST be at least at Cordova V9
 
 ```
-Steves-MacBook-Pro-32GB-Oct-2018:WebstormProjects stevepodell$ cd ~/WebstormProjects
-Steves-MacBook-Pro-32GB-Oct-2018:WebstormProjects stevepodell$ cordova -v
+Steves-MacBook-Pro-32GB-Oct-2019:WebstormProjects stevepodell$ cd ~/WebstormProjects
+Steves-MacBook-Pro-32GB-Oct-2019:WebstormProjects stevepodell$ cordova -v
 9.0.0 (cordova-lib@9.0.1)
-Steves-MacBook-Pro-32GB-Oct-2018:WebstormProjects stevepodell$ 
+Steves-MacBook-Pro-32GB-Oct-2019:WebstormProjects stevepodell$ 
 ```
 If you are not, follow the instructions for cordova-cli release 9.0.0
 https://cordova.apache.org/announcements/2019/03/22/cordova-cli-release-9.0.0.html
@@ -18,18 +18,18 @@ Do not proceed until you are at V9
 This is a destructive action and will require some work to resolve
 
 ```
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cordova platform remove ios android
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cordova platform remove ios android
 Removing platform ios from config.xml file...
 Removing ios from cordova.platforms array in package.json
 Removing platform android from config.xml file...
 Removing android from cordova.platforms array in package.json
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
 ```
 
 Add the platforms back in
 
 ```
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cordova platform add ios android
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cordova platform add ios android
 Using cordova-fetch for cordova-ios@^5.0.0
 Adding ios project...
 Creating Cordova project for the iOS platform:
@@ -53,7 +53,7 @@ Installing "cordova-plugin-splashscreen" for ios
 Installing "cordova-plugin-statusbar" for ios
 Installing "cordova-plugin-whitelist" for ios
 Source and destination must not be the same.
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
 ```
 
 We can ignore that "Source and destination must not be the same." warning for the whitelist plugin, since
@@ -63,7 +63,7 @@ Double check that the android platform is at least at version 8, and ios at vers
 are at the minimum versions.
 
 ```
-Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ cordova platform ls
+Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ cordova platform ls
 Installed platforms:
   android 8.1.0
   ios 5.0.1
@@ -72,7 +72,7 @@ Available platforms:
   electron ^1.0.0
   osx ^5.0.0
   windows ^7.0.0
-Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ 
+Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ 
 ```
 
 ### Manually check that the Cocoapods were installed
@@ -89,16 +89,16 @@ Confirm that the install called the "pod install"
 First in the base www directory, in my case /Users/stevepodell/WebstormProjects/WeVoteCordova/www
 
 ```
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cd www
-Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cd www
+Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ls
 bundle.js       index.html
-Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls -la
+Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ls -la
 total 16
 drwxr-xr-x   4 stevepodell  staff   128 Oct 28 14:55 .
 drwxr-xr-x  18 stevepodell  staff   576 Nov  3 16:05 ..
 lrw-r--r--   1 stevepodell  staff    58 Oct 28 14:55 bundle.js -> /Users/stevepodell/WebstormProjects/WebApp/build/bundle.js
 -rw-r--r--   1 stevepodell  staff  6595 Oct 28 14:54 index.html
-Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ 
+Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ 
 ```
 
 Looks good in this example, if the bundle like is gone, add it back in.
@@ -107,7 +107,7 @@ Looks good in this example, if the bundle like is gone, add it back in.
 
     iOS serves the bundle.js, the index.html, and other files from `WeVoteCordova/platforms/ios/www`
     ```
-    Steves-MacBook-Pro-32GB-Oct-2018:ios stevepodell$ cd /Users/stevepodell/WebstormProjects/WeVoteCordova/platforms/ios/www
+    Steves-MacBook-Pro-32GB-Oct-2019:ios stevepodell$ cd /Users/stevepodell/WebstormProjects/WeVoteCordova/platforms/ios/www
     ```
 
 1.  bundle.js
@@ -125,19 +125,19 @@ Looks good in this example, if the bundle like is gone, add it back in.
     (Note that the location of the img directory changed since we went to WebPack).
 
     ```
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ rm index.html
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ln -s /Users/stevepodell/WebstormProjects/WeVoteCordova/www/index.html index.html
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ln -s /Users/stevepodell/WebstormProjects/WebApp/build/css css
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ln -s /Users/stevepodell/WebstormProjects/WebApp/src/img img
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ln -s /Users/stevepodell/WebstormProjects/WebApp/build/javascript javascript
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ rm index.html
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ln -s /Users/stevepodell/WebstormProjects/WeVoteCordova/www/index.html index.html
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ln -s /Users/stevepodell/WebstormProjects/WebApp/build/css css
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ln -s /Users/stevepodell/WebstormProjects/WebApp/src/img img
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ln -s /Users/stevepodell/WebstormProjects/WebApp/build/javascript javascript
     ```
 
     When you are done the ios www directory should look like this
 
     ```
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ pwd
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ pwd
     /Users/stevepodell/WebstormProjects/WeVoteCordova/platforms/ios/www
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls -la
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ls -la
     total 144
     drwxr-xr-x  11 stevepodell  staff    352 Nov  3 16:27 .
     drwxr-xr-x  19 stevepodell  staff    608 Nov  3 16:08 ..
@@ -150,7 +150,7 @@ Looks good in this example, if the bundle like is gone, add it back in.
     lrwxr-xr-x   1 stevepodell  staff     64 Nov  3 16:26 index.html -> /Users/stevepodell/WebstormProjects/WeVoteCordova/www/index.html
     lrwxr-xr-x   1 stevepodell  staff     59 Nov  3 16:27 javascript -> /Users/stevepodell/WebstormProjects/WebApp/build/javascript
     drwxr-xr-x  10 stevepodell  staff    320 Nov  3 16:05 plugins
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ 
     ```
 
 ### Do a quick test to make sure the C++/Objective C CocoaPods were installed for the Faceboook SDK
@@ -178,21 +178,21 @@ MUST MUST MUST start with Cordova V9, it determines the defaults for the platfor
 
 https://cordova.apache.org/announcements/2019/03/22/cordova-cli-release-9.0.0.html
 
-Steves-MacBook-Pro-32GB-Oct-2018:WebstormProjects stevepodell$ cd ~/WebstormProjects
-Steves-MacBook-Pro-32GB-Oct-2018:WebstormProjects stevepodell$ cordova -v
+Steves-MacBook-Pro-32GB-Oct-2019:WebstormProjects stevepodell$ cd ~/WebstormProjects
+Steves-MacBook-Pro-32GB-Oct-2019:WebstormProjects stevepodell$ cordova -v
 9.0.0 (cordova-lib@9.0.1)
-Steves-MacBook-Pro-32GB-Oct-2018:WebstormProjects stevepodell$ 
+Steves-MacBook-Pro-32GB-Oct-2019:WebstormProjects stevepodell$ 
 
 DO NOT PROCEED UNTIL YOU ARE RUNNING CORDOVA V9 OR HIGHER
 
-Steves-MacBook-Pro-32GB-Oct-2018:WebstormProjects stevepodell$ cordova create WeVoteCordova org.wevote.cordova WeVoteCordova
+Steves-MacBook-Pro-32GB-Oct-2019:WebstormProjects stevepodell$ cordova create WeVoteCordova org.wevote.cordova WeVoteCordova
 Creating a new cordova project.
-Steves-MacBook-Pro-32GB-Oct-2018:WebstormProjects stevepodell$ cd WeVoteCordova
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
+Steves-MacBook-Pro-32GB-Oct-2019:WebstormProjects stevepodell$ cd WeVoteCordova
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
 
 Load the ios platform
 
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cordova platform add ios
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cordova platform add ios
 Using cordova-fetch for cordova-ios@^5.0.0
 Adding ios project...
 Creating Cordova project for the iOS platform:
@@ -204,11 +204,11 @@ Plugin 'cordova-plugin-whitelist' found in config.xml... Migrating it to package
 Discovered saved plugin "cordova-plugin-whitelist". Adding it to the project
 Installing "cordova-plugin-whitelist" for ios
 Adding cordova-plugin-whitelist to package.json
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
 
 DO NOT PROCEED UNTIL YOU ARE RUNNING cordova-ios V5 OR HIGHER
 
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cordova platform add android
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cordova platform add android
 Using cordova-fetch for cordova-android@^8.0.0
 Adding android project...
 Creating Cordova project for the Android platform:
@@ -221,11 +221,11 @@ Subproject Path: CordovaLib
 Subproject Path: app
 Android project created with cordova-android@8.1.0
 Installing "cordova-plugin-whitelist" for android
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
 
 DO NOT PROCEED UNTIL YOU ARE RUNNING cordova-android V8 OR HIGHER
 
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cordova platform ls
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cordova platform ls
 Installed platforms:
   android 8.1.0
   ios 5.0.1
@@ -234,7 +234,7 @@ Available platforms:
   electron ^1.0.0
   osx ^5.0.0
   windows ^7.0.0
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
 
 Double check ios and android versions
 
@@ -254,7 +254,7 @@ Run what you have got in a simulator, and wait for the flashing green "DEVICE IS
 splashscreen -- Success so far!
 
 ```
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cordova plugin add cordova-plugin-facebook4 --save --variable APP_ID="1097389196952441" --variable APP_NAME="WeVoteCordova"
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cordova plugin add cordova-plugin-facebook4 --save --variable APP_ID="1097389196952441" --variable APP_NAME="WeVoteCordova"
 Installing "cordova-plugin-facebook4" for android
 Subproject Path: CordovaLib
 Subproject Path: app
@@ -266,7 +266,7 @@ Running command: pod install --verbose
 [!] The `WeVoteCordova [Release]` target overrides the `LD_RUNPATH_SEARCH_PATHS` build setting defined in `Pods/Target Support Files/Pods-WeVoteCordova/Pods-WeVoteCordova.release.xcconfig'. This can lead to problems with the CocoaPods installation
 
 Adding cordova-plugin-facebook4 to package.json
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
 ```
 
 Confirm that the install called the "pod install"
@@ -315,7 +315,7 @@ pre Nov 3, 3pm
 
 
 
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cordova platform add android
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cordova platform add android
     Using cordova-fetch for cordova-android@~7.0.0
     Adding android project...
     Creating Cordova project for the Android platform:
@@ -332,9 +332,9 @@ pre Nov 3, 3pm
     Installing "cordova-plugin-whitelist" for android
     --save flag or autosave detected
     Saving android@~7.0.0 into config.xml file ...
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$
 
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$  cordova platform add ios@5.0.0
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$  cordova platform add ios@5.0.0
     Using cordova-fetch for cordova-ios@5.0.0
     Adding ios project...
     Creating Cordova project for the iOS platform:
@@ -345,8 +345,8 @@ pre Nov 3, 3pm
     Installing "cordova-plugin-whitelist" for ios
     --save flag or autosave detected
     Saving ios@~5.0.0 into config.xml file ...
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cordova platform ls
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cordova platform ls
     Installed platforms:
       android 7.0.0
       ios 5.0.0
@@ -355,12 +355,12 @@ pre Nov 3, 3pm
       osx ~4.0.1
       windows ~5.0.0
       www ^3.12.0
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$
 
 
     624  npm install
 
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cordova requirements
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cordova requirements
     Android Studio project detected
     
     Requirements check results for android:
@@ -385,7 +385,7 @@ pre Nov 3, 3pm
         at processTicksAndRejections (internal/process/task_queues.js:79:9)
     (node:67910) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
     (node:67910) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$
 
     645  sudo npm install --global --unsafe-perm ios-deploy
     646  npm install && npm test
@@ -394,9 +394,9 @@ pre Nov 3, 3pm
 Open /Users/stevepodell/WebstormProjects/WeVoteCordova/platforms/ios/WeVoteCordova.xcworkspace with XCode, and run "Build" from the Product menu.
 Success
 
-    Steves-MacBook-Pro-32GB-Oct-2018:ios stevepodell$ pwd
+    Steves-MacBook-Pro-32GB-Oct-2019:ios stevepodell$ pwd
     /Users/stevepodell/WebstormProjects/WeVoteCordova/platforms/ios
-    Steves-MacBook-Pro-32GB-Oct-2018:ios stevepodell$
+    Steves-MacBook-Pro-32GB-Oct-2019:ios stevepodell$
 
     668  cordova plugin add cordova-plugin-whitelist
     669  cordova plugin add cordova-plugin-device
@@ -455,7 +455,7 @@ Just keep the backup of your PodFile and run below commands.
     Clean and run.
 ```
 
-    Steves-MacBook-Pro-32GB-Oct-2018:ios stevepodell$ pod deintegrate
+    Steves-MacBook-Pro-32GB-Oct-2019:ios stevepodell$ pod deintegrate
     Deintegrating `WeVoteCordova.xcodeproj`
     Deleted 1 'Check Pods Manifest.lock' build phases.
     - libPods-WeVoteCordova.a
@@ -466,8 +466,8 @@ Just keep the backup of your PodFile and run below commands.
     
     Project has been deintegrated. No traces of CocoaPods left in project.
     Note: The workspace referencing the Pods project still remains.
-    Steves-MacBook-Pro-32GB-Oct-2018:ios stevepodell$ pod clean
-    Steves-MacBook-Pro-32GB-Oct-2018:ios stevepodell$ pod install
+    Steves-MacBook-Pro-32GB-Oct-2019:ios stevepodell$ pod clean
+    Steves-MacBook-Pro-32GB-Oct-2019:ios stevepodell$ pod install
     Analyzing dependencies
     Downloading dependencies
     Generating Pods project
@@ -493,7 +493,7 @@ Just keep the backup of your PodFile and run below commands.
     [!] The `WeVoteCordova [Release]` target overrides the `PODS_ROOT` build setting defined in `Pods/Target Support Files/Pods-WeVoteCordova/Pods-WeVoteCordova.release.xcconfig'. This can lead to problems with the CocoaPods installation
         - Use the `$(inherited)` flag, or
         - Remove the build settings from the target.
-    Steves-MacBook-Pro-32GB-Oct-2018:ios stevepodell$
+    Steves-MacBook-Pro-32GB-Oct-2019:ios stevepodell$
 
     690  pod deintegrate
     691  pod clean
@@ -518,7 +518,7 @@ Manually edited the Podfile to be:
         pod 'FBSDKShareKit', '5.7.0'
     end
 
-    Steves-MacBook-Pro-32GB-Oct-2018:ios stevepodell$ pod install
+    Steves-MacBook-Pro-32GB-Oct-2019:ios stevepodell$ pod install
     Analyzing dependencies
     Downloading dependencies
     Installing FBSDKCoreKit (5.7.0)
@@ -543,7 +543,7 @@ Manually edited the Podfile to be:
     [!] The `WeVoteCordova [Release]` target overrides the `PODS_ROOT` build setting defined in `Pods/Target Support Files/Pods-WeVoteCordova/Pods-WeVoteCordova.release.xcconfig'. This can lead to problems with the CocoaPods installation
         - Use the `$(inherited)` flag, or
         - Remove the build settings from the target.
-    Steves-MacBook-Pro-32GB-Oct-2018:ios stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:ios stevepodell$ 
 
 Try again
 
@@ -554,14 +554,14 @@ Try again
 
 Same error
 
-Steves-MacBook-Pro-32GB-Oct-2018:ios stevepodell$ cordova --version
+Steves-MacBook-Pro-32GB-Oct-2019:ios stevepodell$ cordova --version
 8.0.0
-Steves-MacBook-Pro-32GB-Oct-2018:ios stevepodell$ 
+Steves-MacBook-Pro-32GB-Oct-2019:ios stevepodell$ 
 
 
 https://cordova.apache.org/docs/en/latest/guide/cli/index.html
 
-Steves-MacBook-Pro-32GB-Oct-2018:ios stevepodell$ cordova plugin rm cordova-plugin-facebook4
+Steves-MacBook-Pro-32GB-Oct-2019:ios stevepodell$ cordova plugin rm cordova-plugin-facebook4
 
 App works in simulator
 
@@ -570,12 +570,12 @@ https://cordova.apache.org/announcements/2019/03/22/cordova-cli-release-9.0.0.ht
 
 FIX THE SYMBOLIC LINK IN /usr/local/bin/ to point to where the cordova 9 lives
 
-Steves-MacBook-Pro-32GB-Oct-2018:bin stevepodell$ ln -s /usr/local/Cellar/node/11.14.0_1/lib/node_modules/cordova/bin/cordova cordova
+Steves-MacBook-Pro-32GB-Oct-2019:bin stevepodell$ ln -s /usr/local/Cellar/node/11.14.0_1/lib/node_modules/cordova/bin/cordova cordova
 S
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cd ~/WebstormProjects/WeVoteCordova
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cordova -v
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cd ~/WebstormProjects/WeVoteCordova
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cordova -v
 9.0.0 (cordova-lib@9.0.1)
-Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
+Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
 
   756  cordova prepare ios
   757  cordova compile ios

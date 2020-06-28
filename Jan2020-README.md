@@ -89,10 +89,10 @@ Studio for Android).
     ```
     Example: on the example machine that looks like...
     ```
-    Steves-MacBook-Pro-32GB-Oct-2018:WebstormProjects stevepodell$ sudo npm uninstall -g cordova
+    Steves-MacBook-Pro-32GB-Oct-2019:WebstormProjects stevepodell$ sudo npm uninstall -g cordova
     Password:
     removed 455 packages in 2.224s
-    Steves-MacBook-Pro-32GB-Oct-2018:WebstormProjects stevepodell$ sudo npm uninstall -g cordova
+    Steves-MacBook-Pro-32GB-Oct-2019:WebstormProjects stevepodell$ sudo npm uninstall -g cordova
     up to date in 0.027s
     
     
@@ -104,20 +104,20 @@ Studio for Android).
        │                                                                │
        ╰────────────────────────────────────────────────────────────────╯
     
-    Steves-MacBook-Pro-32GB-Oct-2018:WebstormProjects stevepodell$ sudo npm install -g cordova@9.0.0
+    Steves-MacBook-Pro-32GB-Oct-2019:WebstormProjects stevepodell$ sudo npm install -g cordova@9.0.0
     /usr/local/Cellar/node/11.14.0_1/bin/cordova -> /usr/local/Cellar/node/11.14.0_1/lib/node_modules/cordova/bin/cordova
     + cordova@9.0.0
     added 455 packages from 361 contributors in 11.556s
-    Steves-MacBook-Pro-32GB-Oct-2018:WebstormProjects stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:WebstormProjects stevepodell$ 
     ```    
 
     Please save in your notes, the path/symlink where cordova is installed. (ex/ `/usr/local/Cellar/node/12.5.0/bin/cordova`)
 
     Do not proceed until you are at V9, or higher.  
     ```    
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cordova -v
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cordova -v
     9.0.0 (cordova-lib@9.0.1)
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
     ```
     
     (The example machine had a symlink in `/usr/local/bin/` that did not point to where the Cordova 9 was installed earlier in this step, and that 
@@ -140,15 +140,15 @@ correct for your environment.
     ```
     On the example machine that is...
     ```   
-    Steves-MacBook-Pro-32GB-Oct-2018:WebstormProjects stevepodell$ cd WeVoteCordova/www
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ln -s /Users/stevepodell/WebstormProjects/WebApp/build/bundle.js bundle.js
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls -la
+    Steves-MacBook-Pro-32GB-Oct-2019:WebstormProjects stevepodell$ cd WeVoteCordova/www
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ln -s /Users/stevepodell/WebstormProjects/WebApp/build/bundle.js bundle.js
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ls -la
     total 16
     drwxr-xr-x   4 stevepodell  staff   128 Nov 10 16:51 .
     drwxr-xr-x  16 stevepodell  staff   512 Nov 10 16:45 ..
     lrwxr-xr-x   1 stevepodell  staff    58 Nov 10 16:51 bundle.js -> /Users/stevepodell/WebstormProjects/WebApp/build/bundle.js
     -rw-r--r--   1 stevepodell  staff  6595 Nov 10 16:45 index.html
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ 
     ```
 
 1.  Manually remove all the Cordova plugins.  One of which we have source controlled a modified "Objective-C" file, and need
@@ -166,8 +166,8 @@ to override the distribution.
     ```
     Example:
     ```
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ cordova platform rm ios android
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ cordova platform add ios android
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ cordova platform rm ios android
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ cordova platform add ios android
     Using cordova-fetch for cordova-ios@^5.0.0
     Adding ios project...
     Creating Cordova project for the iOS platform:
@@ -209,7 +209,7 @@ to override the distribution.
     
     Adding cordova-plugin-facebook4 to package.json
     Source and destination must not be the same.
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ 
     ```
 
 1.  Rename this code directory to a temporary name: `WeVoteCordovaPopulated`
@@ -220,9 +220,9 @@ to override the distribution.
     ```
     Example:
     ```
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cd ..
-    Steves-MacBook-Pro-32GB-Oct-2018:WebstormProjects stevepodell$ mv WeVoteCordova WeVoteCordovaPopulated
-    Steves-MacBook-Pro-32GB-Oct-2018:WebstormProjects stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cd ..
+    Steves-MacBook-Pro-32GB-Oct-2019:WebstormProjects stevepodell$ mv WeVoteCordova WeVoteCordovaPopulated
+    Steves-MacBook-Pro-32GB-Oct-2019:WebstormProjects stevepodell$ 
     ```
     This step has added all the Cordova libraries, installed up-to-date versions of the Cordova plugins, and set up directories for iOS and Android,
     but it destroyed some of the source controlled configuration files by overwriting them with default scaffolding files.
@@ -278,13 +278,13 @@ to override the distribution.
 
    on the example machine...
    
-   Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ npm install
+   Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ npm install
    npm WARN org.wevote.cordova@1.0.0 No repository field.
     
    added 144 packages from 98 contributors and audited 357 packages in 3.698s
    found 2 vulnerabilities (1 low, 1 moderate)
      run `npm audit fix` to fix them, or `npm audit` for details
-   Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
+   Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
    ```
    At this point, don't worry about any reported vulnerabilites, and don't try to fix 
    them at this moment.
@@ -300,8 +300,8 @@ Throughout these instructions, remember to substitute your actual user name for 
     cd /Users/your-username/MyProjects/WeVoteCordova/platforms/ios/www
     
     Example:
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cd platforms/ios/www
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls -la
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cd platforms/ios/www
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ls -la
     total 160
     drwxr-xr-x   8 stevepodell  staff    256 Nov 11 14:11 .
     drwxr-xr-x  18 stevepodell  staff    576 Nov 11 14:11 ..
@@ -311,7 +311,7 @@ Throughout these instructions, remember to substitute your actual user name for 
     -rw-r--r--   1 stevepodell  staff   2501 Nov 11 14:11 cordova_plugins.js
     -rw-r--r--   1 stevepodell  staff   6595 Nov 11 14:11 index.html
     drwxr-xr-x  10 stevepodell  staff    320 Nov 11 14:11 plugins
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ 
     ```
 
 1.  Make the other symlinks that the iOS cordova app will need while running.  (Remember to substitute your actual user name
@@ -351,14 +351,14 @@ that the link points to a sizeable file (17856048 bytes in the case of bundle.js
 100 bytes, then the link is probably incorrect.  Use `ls` to make sure that the links for directories, contain a few files.
 
     ```
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ pwd
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ pwd
     /Users/stevepodell/WebStormProjects/WeVoteCordova/platforms/ios/www
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ stat -L bundle.js
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ stat -L bundle.js
     16777220 134276137 -rw-r--r-- 1 stevepodell staff 0 26625098 "Nov 11 14:12:26 2019" "Nov 10 16:50:44 2019" "Nov 11 14:11:21 2019" "Nov 10 16:50:43 2019" 4096 52008 0 bundle.js
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls css
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ls css
     bootstrap-social.css    loading-screen.css      main.css
     bootstrap-social.css    loading-screen.css      main.css
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls img
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ls img
     Dale_McGrew-200x200.jpg                         global                                          mixed-rating-icon.svg                           thumbs-down-icon.svg                            we-vote-logo-horizontal-color-200x66.svg
     WelcomeForVoters-Ballot-20190507.png            glyphicons-halflings-88-remove-circle.svg       no-position-icon.svg                            thumbs-up-color-icon.svg                        we-vote-logo-horizontal-color-dark-141x46.svg
     avatar-generic.svg                              google-logo.svg                                 organization-icon.svg                           thumbs-up-icon.svg                              welcome
@@ -366,7 +366,7 @@ that the link points to a sizeable file (17856048 bytes in the case of bundle.js
     down-arrow-color-icon.svg                       how-it-works                                    public-icon.svg                                 up-arrow-color-icon.svg
     endorsement-extension                           issue-generic.svg                               share-icon.svg                                  vip-logo-1000x208.png
     ffwd-logo.png                                   issue-photo-generic.svg                         thumbs-down-color-icon.svg                      vote_dot_org_logo-530x200.png
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ 
     ```
 
 **You are now done with the iOS specific setup.**
@@ -377,8 +377,8 @@ that the link points to a sizeable file (17856048 bytes in the case of bundle.js
 1. Remove the Android platform, and then add it back in (Make sure that the command does not have `ios` in it, or
 you will undo some of your previous setup work!)
    ```
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cordova platform rm android
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cordova platform add android
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cordova platform rm android
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cordova platform add android
     Using cordova-fetch for cordova-android@^8.0.0
     Adding android project...
     Creating Cordova project for the Android platform:
@@ -404,10 +404,10 @@ you will undo some of your previous setup work!)
     Installing "cordova-plugin-statusbar" for android
     Installing "cordova-plugin-whitelist" for android
     Source and destination must not be the same.
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cordova platform add android
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cordova platform add android
     Using cordova-fetch for cordova-android@^8.1.0
     Platform android already added.
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
    ```
    If you get the "**Source and destination must not be the same.**" message, then just 
    add android again.  See the example above.
@@ -415,8 +415,8 @@ you will undo some of your previous setup work!)
 1. Then confirm that `WeVoteCordova/platforms/android/app/src/main/assets/www` exists by changing to that directory
    
    ```
-   Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ cd /Users/stevepodell/WebstormProjects/WeVoteCordova/platforms/android/app/src/main/assets/www
-   Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls -la
+   Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ cd /Users/stevepodell/WebstormProjects/WeVoteCordova/platforms/android/app/src/main/assets/www
+   Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ls -la
    total 152
    drwxr-xr-x   8 stevepodell  staff    256 Nov 11 14:37 .
    drwxr-xr-x   3 stevepodell  staff     96 Nov 11 14:37 ..
@@ -426,7 +426,7 @@ you will undo some of your previous setup work!)
    -rw-r--r--   1 stevepodell  staff   2501 Nov 11 14:37 cordova_plugins.js
    -rw-r--r--   1 stevepodell  staff   6595 Nov 11 14:11 index.html
    drwxr-xr-x  10 stevepodell  staff    320 Nov 11 14:37 plugins
-   Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$
+   Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$
    ```
 
 1.  The rest of the Android specific setup is a lot like the iOS setup. 
@@ -434,11 +434,11 @@ you will undo some of your previous setup work!)
     Android serves the bundle.js, the index.html, and other files from `WeVoteCordova/platforms/android/app/src/main/assets/www`
     Make the other symlinks that the Android cordova app will need while running
     ```
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ rm index.html
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ln -s /Users/stevepodell/WebStormProjects/WeVoteCordova/www/index.html index.html
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ln -s /Users/stevepodell/WebstormProjects/WebApp/build/css css
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ln -s /Users/stevepodell/WebstormProjects/WebApp/src/img img
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls -la
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ rm index.html
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ln -s /Users/stevepodell/WebStormProjects/WeVoteCordova/www/index.html index.html
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ln -s /Users/stevepodell/WebstormProjects/WebApp/build/css css
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ln -s /Users/stevepodell/WebstormProjects/WebApp/src/img img
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ls -la
     total 136
     drwxr-xr-x  10 stevepodell  staff    320 Nov 12 18:02 .
     drwxr-xr-x   3 stevepodell  staff     96 Nov 12 17:55 ..
@@ -450,7 +450,7 @@ you will undo some of your previous setup work!)
     lrwxr-xr-x   1 stevepodell  staff     50 Nov 12 18:02 img -> /Users/stevepodell/WebstormProjects/WebApp/src/img
     lrwxr-xr-x   1 stevepodell  staff     64 Nov 12 18:02 index.html -> /Users/stevepodell/WebStormProjects/WeVoteCordova/www/index.html
     drwxr-xr-x  10 stevepodell  staff    320 Nov 12 17:55 plugins
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ 
     ```
         
 1.  You should test each one of those links, to make sure that they really point to where it needs to. It is much easier 
@@ -459,15 +459,15 @@ that the link points to a sizeable file (17856048 bytes in the case of bundle.js
 100 bytes, then the link is probably incorrect.  Use `ls` to make sure that the links for directories, contain a few files.
 
     ```
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ pwd
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ pwd
     /Users/stevepodell/WebstormProjects/WeVoteCordova/platforms/android/app/src/main/assets/www
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ stat -L bundle.js 
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ stat -L bundle.js 
     16777220 134276137 -rw-r--r-- 1 stevepodell staff 0 26625098 "Nov 11 14:33:16 2019" "Nov 10 16:50:44 2019" "Nov 11 14:11:21 2019" "Nov 10 16:50:43 2019" 4096 52008 0 bundle.js
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls css
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ls css
     bootstrap-social.css    loading-screen.css      main.css
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls img
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ ls img
     endorsement-extension   endorsement-icon48.png  global                  how-it-works            sierra.pdf              tools                   welcome
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ head index.html
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ head index.html
     <!DOCTYPE html>
     <!--
         index.html for WeVoteCordova
@@ -478,7 +478,7 @@ that the link points to a sizeable file (17856048 bytes in the case of bundle.js
            WeVoteCordova/www/index.html
     
     -->
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:www stevepodell$ 
     ```
 
 **You are now done with the Android specific setup.**
@@ -516,14 +516,14 @@ For Android, install the [Android Studio](https://developer.android.com/studio/i
     
     On a machine where node may already have been installed, we want to have version 10 or heigher:
     ```
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ node -v
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ node -v
     v11.14.0
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ brew upgrade node
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ brew upgrade node
     Updating Homebrew...
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ node -v
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ node -v
     v12.12.0
-    Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
+    Steves-MacBook-Pro-32GB-Oct-2019:WeVoteCordova stevepodell$ 
     ```
 
 1.  Install CocoaPods (an MacOS dependency manager).
