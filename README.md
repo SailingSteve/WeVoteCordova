@@ -256,7 +256,42 @@ Cordova build/run process to use the code from the WebApp.
     ln android index.html successful
     stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % 
     ```
-
+1. Overwrite local generated files from GIT
+   ```
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git fetch upstream               
+    From https://github.com/wevote/WeVoteCordova
+     * [new branch]      develop                                   -> upstream/develop
+     * [new branch]      master                                    -> upstream/master
+     * [new branch]      snyk-fix-e50f77af404aad0d747f31f0eb85c3ba -> upstream/snyk-fix-e50f77af404aad0d747f31f0eb85c3ba
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git reset --hard upstream/develop
+    HEAD is now at 1ed1d3b Merge pull request #130 from SailingSteve/steveCorovaJune29-10
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git clean -df                    
+    Removing platforms/android/cordova-plugin-safariviewcontroller/
+    Removing platforms/ios/Pods/Headers/
+    Removing platforms/ios/Pods/Local Podspecs/
+    Removing platforms/ios/WeVoteCordova/Images.xcassets/AppIcon.appiconset/icon-20.png
+    Removing platforms/ios/WeVoteCordova/Images.xcassets/AppIcon.appiconset/icon-20@2x.png
+    Removing platforms/ios/WeVoteCordova/Images.xcassets/AppIcon.appiconset/icon-20@3x.png
+    Removing platforms/ios/WeVoteCordova/Images.xcassets/AppIcon.appiconset/icon-29.png
+    Removing platforms/ios/WeVoteCordova/Images.xcassets/AppIcon.appiconset/icon-40.png
+    Removing platforms/ios/WeVoteCordova/Images.xcassets/AppIcon.appiconset/icon-50.png
+    Removing platforms/ios/WeVoteCordova/Images.xcassets/AppIcon.appiconset/icon-60@2x.png
+    Removing platforms/ios/WeVoteCordova/Images.xcassets/AppIcon.appiconset/icon-60@3x.png
+    Removing platforms/ios/WeVoteCordova/Images.xcassets/AppIcon.appiconset/icon-72.png
+    Removing platforms/ios/WeVoteCordova/Images.xcassets/AppIcon.appiconset/icon-72@2x.png
+    Removing platforms/ios/WeVoteCordova/Images.xcassets/AppIcon.appiconset/icon-76.png
+    Removing platforms/ios/WeVoteCordova/Images.xcassets/AppIcon.appiconset/icon-76@2x.png
+    Removing platforms/ios/WeVoteCordova/Images.xcassets/AppIcon.appiconset/icon-83.5@2x.png
+    Removing platforms/ios/WeVoteCordova/Images.xcassets/AppIcon.appiconset/icon.png
+    Removing platforms/ios/WeVoteCordova/Images.xcassets/AppIcon.appiconset/icon@2x.png
+    Removing platforms/ios/www/plugins/cordova-plugin-customurlscheme/
+    
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git pull upstream develop
+    From https://github.com/wevote/WeVoteCordova
+     * branch            develop    -> FETCH_HEAD
+    Already up to date.
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % 
+    ```
 
 # Platform specific iOS setup (Skip this section if your computer is running Windows or Linux)
 
