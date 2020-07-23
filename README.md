@@ -446,12 +446,14 @@ WebApp and to the WeVoteCordova.
 
     In Xcode, click on the WeVoteCordova path in the left pane, which displays the 'General' editor.
     
+    Under 'Identity' change the 'Display Name' to "We Vote" (that becomes the name of the app on the home screen)
+    
     Under 'Deployment Info', 'Main Interface', select `CDVLaunchScreen.storyboard`
     
     Under 'App Icons and LaunchImages' click on the pulldown for 'Launch File Screen' and select the only option that is available:
     `CDVLaunchScreen`.
     
-    ![ScreenShot](docs/images/CDVLaunchScreenConfiguration.png)
+    ![ScreenShot](docs/images/XCodeLaunchScreenConfig.png)
 
     No need to save in the Xcode IDE.  Next time the app starts, all these images should be in place.
     
