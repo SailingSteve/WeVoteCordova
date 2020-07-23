@@ -171,18 +171,19 @@ WebApp and to the WeVoteCordova.
 1. Run the `copyFromSaveoff` script to copy all the source controlled files to WeVoteCordova
     
     ```
-    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordovaSaveoff % node copyFromSaveoff
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordovaSaveoff % node copyFromSaveoff                                               
     __dirname /Users/stevepodell/WebstormProjects/WeVoteCordovaSaveoff
     Removed scaffolding directory:  WeVoteCordova/www
     ../WeVoteCordova/www Directory created successfully
     ./.gitignore copied successfully
     ./.npmignore copied successfully
-    ./package.json copied successfully
     ./copyFromSaveoff.js copied successfully
     ./buildSymLinks.js copied successfully
     package-lock.json copied successfully
     ./www/index.html copied successfully
+    ./config.xml copied successfully
     README.md copied successfully
+    ./package.json copied successfully
     Copied the /res dir from ../WeVoteCordovaSaveoff
     Copied the /docs dir from ../WeVoteCordovaSaveoff
     stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordovaSaveoff % 
@@ -325,24 +326,6 @@ WebApp and to the WeVoteCordova.
     stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % 
     ```
 
-1. Copy source controlled files from the `WeVoteCordovaSaveoff` dir you made earlier to the `WeVoteCordova` dir
-
-    You can do this with your IDE, or in Finder
-
-    First copy two directories:
-    ```
-    /docs
-    /res
-    ```
-    Then copy some files in the root directory
-    ```
-    .gitignore
-    .npmignore
-    buildSymLinks.js
-    README.MD
-    ```
-    At this point we are done with the `WeVoteCordovaSaveoff` dir, and will only be working on the `WeVoteCordova` dir
-
 1. Set up the sym links for iOS and Android
     ```
     node buildSymLinks /Users/stevepodell/WebstormProjects/WebApp/build
@@ -409,6 +392,8 @@ WebApp and to the WeVoteCordova.
     screens and icons will not be correct, but the WebApp running within Cordova should look good.
     ![ScreenShot](docs/images/XCodeOpenedAndReady.png)
 
+    At this point you have a working Cordova iOS build, next we will fix up the icons and splashcreens.
+
 1. We hope this is not necessary.  Optional:  If the Cordova iOS app loads the html page (White "Loading We Vote" on blue, but crashes in JQuery regex), logs `SyntaxError: Invalid regular expression: range out of order in character class`
  and never advances to the first js page in the WebApp:
 
@@ -429,7 +414,7 @@ WebApp and to the WeVoteCordova.
     npm run start-https-singleBundle
     ```
    
-1. From now on, we will be working exclusively in the WeVoteCordova directory. Copy the icons from `res/` to the `LaunchStoryboard` `Images.xcassets` in Xcode
+1. Once you have the basic working Cordova iOS app going...  Copy the icons from `WeVoteCordova/res/` to the `LaunchStoryboard` `Images.xcassets` in the Xcode IDE
 
     If you have two monitors, they will be very handy for this step.  Open Xcode in one monitor, and your IDE in
     the other.  If you use PyCharm or WebStorm these pictures will show you exactly what to do.
@@ -453,7 +438,7 @@ WebApp and to the WeVoteCordova.
     recommends simply a icon, or a mockup of the first screen (which would not work well for our app).
     Change your IDE to show the pngs in `WeVoteCordova/res/screen/ios` and in XCode selecct LaunchStoryBoard in the edit
     window.  For each LaunchStoryBoard image configuration, drop the `WeVoteCordova/res/screen/ios/June2020LaunchScreen.png` onto each.
-    Yes, drop the same image 40 times into the different configurations.  We can do something
+    Yes, drop the same image 40 times into the different configurations.  XCode stores this setup in a binary file, so maybe we can do something
     fancier later, but this works well enough for now.
     ![ScreenShot](docs/images/LaunchStoryboardConfig.png)
 
@@ -469,12 +454,18 @@ WebApp and to the WeVoteCordova.
     ![ScreenShot](docs/images/CDVLaunchScreenConfiguration.png)
 
     No need to save in the Xcode IDE.  Next time the app starts, all these images should be in place.
+    
+    You have a fully configured WeVoteCordova app running in your simulator!  Next step is to connect your new 
+    WeVoteCordova directory to Git.
    
 ## Git setup
+1. On github.com, fork WeVoteCordova to your account. Navigate to https://github.com/wevote/WeVoteCordova and then click the "Fork" button in the upper right corner.
+
 1. Execute the following commands from your WeVoteCordova directory
     ```
     git init
     git checkout -b develop
+    git add -all
     git commit --allow-empty -m "initial commit"
     git remote add upstream https://github.com/wevote/WeVoteCordova.git
     git remote add origin https://github.com/SailingSteve/WeVoteCordova.git
@@ -488,9 +479,46 @@ WebApp and to the WeVoteCordova.
     Initialized empty Git repository in /Users/stevepodell/WebstormProjects/WeVoteCordova/.git/
     stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git checkout -b develop
     Switched to a new branch 'develop'
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git status
+    On branch develop
+    
+    No commits yet
+    
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+            .gitignore
+            .npmignore
+            README.md
+            buildSymLinks.js
+            config.xml
+            copyFromSaveoff.js
+            docs/
+            hooks/
+            package-lock.json
+            package.json
+            res/
+            www/
+    
+    nothing added to commit but untracked files present (use "git add" to track)
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git add --all
     stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git commit --allow-empty -m "initial commit"
-    [develop (root-commit) 2b7aa39] initial commit
-    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova %
+    [develop (root-commit) de7a1d4] initial commit
+     214 files changed, 6999 insertions(+)
+     create mode 100644 .gitignore
+     create mode 100644 .npmignore
+     create mode 100644 README.md
+     create mode 100644 buildSymLinks.js
+     create mode 100644 config.xml
+     create mode 100644 copyFromSaveoff.js
+     create mode 100644 docs/AlternateInstallProceedureRebuildFromScratch.md
+     (Many tedious creates of docs snipped out of this screen capture)
+     create mode 100644 hooks/README.md
+     create mode 100644 package-lock.json
+     create mode 100644 package.json
+     create mode 100644 res/README.md
+     create mode 100644 res/icon/android/hdpi/ic_launcher.png
+     (Many tedious creates of res files  snipped out of this screen capture)
+     create mode 100644 www/index.html
     stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git remote add upstream https://github.com/wevote/WeVoteCordova.git
     stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git remote add origin https://github.com/SailingSteve/WeVoteCordova.git
     stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git remote -v
@@ -499,171 +527,62 @@ WebApp and to the WeVoteCordova.
     upstream        https://github.com/wevote/WeVoteCordova.git (fetch)
     upstream        https://github.com/wevote/WeVoteCordova.git (push)
     stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git fetch
-    remote: Enumerating objects: 13, done.
-    remote: Counting objects: 100% (13/13), done.
-    remote: Compressing objects: 100% (13/13), done.
-    remote: Total 3539 (delta 4), reused 2 (delta 0), pack-reused 3526
-    Receiving objects: 100% (3539/3539), 80.16 MiB | 5.14 MiB/s, done.
-    Resolving deltas: 100% (1557/1557), done.
+    remote: Enumerating objects: 3577, done.
+    remote: Total 3577 (delta 0), reused 0 (delta 0), pack-reused 3577
+    Receiving objects: 100% (3577/3577), 85.73 MiB | 9.65 MiB/s, done.
+    Resolving deltas: 100% (1579/1579), done.
     From https://github.com/SailingSteve/WeVoteCordova
      * [new branch]      develop                                  -> origin/develop
      * [new branch]      master                                   -> origin/master
+     * [new branch]      steveCordovaJul22-835pm                  -> origin/steveCordovaJul22-835pm
      * [new branch]      steveCordovaJuly15-10am                  -> origin/steveCordovaJuly15-10am
+     * [new branch]      steveCordovaJuly22-1005am                -> origin/steveCordovaJuly22-1005am
+     * [new branch]      steveCordovaJuly22-541pm                 -> origin/steveCordovaJuly22-541pm
      * [new branch]      steveCordovaJune28                       -> origin/steveCordovaJune28
      * [new branch]      steveCordovaJune28-3                     -> origin/steveCordovaJune28-3
      * [new branch]      steveCordovaRemovePlatformsPluginsJuly14 -> origin/steveCordovaRemovePlatformsPluginsJuly14
      * [new branch]      steveCordovaUpdateFromScratchJune23      -> origin/steveCordovaUpdateFromScratchJune23
      * [new branch]      steveCorovaJune29-10                     -> origin/steveCorovaJune29-10
-    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova %
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % 
     ```
     You will a have different branch list than in this example.
 
-1. Add the bits you manually copied in to git, so that they will match develop (plus any changes you might have made)
-
+1. Now get the remotes in sync    
     ```
-    /docs
-    /res
-    /www/index.html
-    .gitignore
-    .npmignore
-    buildSymLinks.js
-    package.json
-    package-lock.json
-    README.MD
+    git checkout HEAD
+    git pull upstream develop --allow-unrelated-histories
+    git push origin develop --force
     ```
-
-1. Now make a new branch (I used my IDE to do this), and called it steveCordovaJuly16-2pm
-Your develop branch might not be exactly matching upstream/develop but it should be very close -- close
-enougth not to worry about any differences.  Once you stash your changes, change branch to develop, `pull upstream develop`
-you should be working with the correct base, and you can go back to your working branch ... `steveCordovaJuly16-2pm` in
-my case, and make your pull request.
-
-That's it!  Installed from scratch in about an hour.
-
-   
-   
-1. On github.com, fork WeVoteCordova to your account. Navigate to https://github.com/wevote/WeVoteCordova and then click the "Fork" button in the upper right corner.
-    
-1. You may need to setup your Github remotes
-
+    As seen in the terminal
     ```
-    Example:
-    Steves-iMac: MyProjects your-username$ cd /Users/your-username/MyProjects/WeVoteCordova
-    Steves-iMac: WeVoteCordova your-username$ git remote -v
-    origin  https://github.com/SailingSteve/WeVoteCordova.git (fetch)
-    origin  https://github.com/SailingSteve/WeVoteCordova.git (push)
-    upstream        https://github.com/wevote/WeVoteCordova.git (fetch)
-    upstream        https://github.com/wevote/WeVoteCordova.git (push)
-    Steves-iMac: WeVoteCordova your-username$ 
-    ```
-    If you don't have remotes defined... (remember to substitute your github user name for "SailingSteve")
-    (The default setup might have the git origin pointing to https://github.com/wevote/WeVoteCordova.git,
-    which you will have to remove, since at We Vote we have the origin/upstream reversed from most other 
-    projects on github.)
-    ```
-    git remote rm origin
-    git remote add upstream https://github.com/wevote/WeVoteCordova.git
-    git remote add origin https://github.com/SailingSteve/WeVoteCordova.git
-    git remote -v
-    ```
-
-1. Run npm install (it doesn't hurt to do this multiple times!)
-    ```
-    npm install
-
-   on the example machine...
-   
-   Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ npm install
-   npm WARN org.wevote.cordova@1.0.0 No repository field.
-    
-   added 144 packages from 98 contributors and audited 357 packages in 3.698s
-   found 2 vulnerabilities (1 low, 1 moderate)
-     run `npm audit fix` to fix them, or `npm audit` for details
-   Steves-MacBook-Pro-32GB-Oct-2018:WeVoteCordova stevepodell$ 
-   ```
-   At this point, don't worry about any reported vulnerabilites, and don't try to fix 
-   them at this moment.
-
-
-1.  Make sure you are in the WeVoteCordova directory and run the buildSymLinks.js script.  This allows the 
-Cordova build/run process to use the code from the WebApp.
-
-    ```
-    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % pwd
-    /Users/stevepodell/WebstormProjects/WeVoteCordova
-    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % node buildSymLinks /Users/stevepodell/WebstormProjects/WebApp/build
-    __dirname /Users/stevepodell/WebstormProjects/WeVoteCordova
-    unlink: android index.html
-    unlink: ios index.html
-    unlink: android bundle.js
-    unlink: ios bundle.js
-    rmdir: /Users/stevepodell/WebstormProjects/WeVoteCordova/platforms/ios/www/img
-    rmdir: /Users/stevepodell/WebstormProjects/WeVoteCordova/platforms/android/app/src/main/assets/www/css
-    rmdir: /Users/stevepodell/WebstormProjects/WeVoteCordova/platforms/ios/www/css
-    rmdir: /Users/stevepodell/WebstormProjects/WeVoteCordova/platforms/android/app/src/main/assets/www/img
-    ln ios bundle.js successful
-    ln android bundle.js successful
-    ln android css successful
-    ln ios css successful
-    ln android img successful
-    ln ios img successful
-    ln ios index.html successful
-    ln android index.html successful
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git checkout HEAD 
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git pull upstream develop --allow-unrelated-histories
+    From https://github.com/wevote/WeVoteCordova
+     * branch            develop    -> FETCH_HEAD
+    Already up to date.
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git push origin develop --force
+    Enumerating objects: 228, done.
+    Counting objects: 100% (228/228), done.
+    Delta compression using up to 12 threads
+    Compressing objects: 100% (195/195), done.
+    Writing objects: 100% (228/228), 63.47 MiB | 551.00 KiB/s, done.
+    Total 228 (delta 19), reused 205 (delta 15), pack-reused 0
+    remote: Resolving deltas: 100% (19/19), done.
+    To https://github.com/SailingSteve/WeVoteCordova.git
+     + 1ed1d3b...de7a1d4 develop -> develop (forced update)
     stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % 
     ```
-
-
-# Platform specific iOS setup (Skip this section if your computer is running Windows or Linux)
-
-Throughout these instructions, remember to substitute your actual user name for "your-username"!
-
-1.  Confirm that the symlinks are in place for iOS
-
-    iOS serves the bundle.js, the index.html, and other files from `WeVoteCordova/platforms/ios/www`
-    buildSymLinks script should have setup the ios www directory will have changed as follows...
-
+    Do a quick check   
     ```
-    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % ls -la platforms/ios/www 
-    total 152
-    drwxr-xr-x  11 stevepodell  staff    352 Jun 25 15:04 .
-    drwxr-xr-x  19 stevepodell  staff    608 Jun 24 13:59 ..
-    lrwxr-xr-x   1 stevepodell  staff     58 Jun 25 14:52 bundle.js -> /Users/stevepodell/WebstormProjects/WebApp/build/bundle.js
-    drwxr-xr-x   6 stevepodell  staff    192 Jun 24 09:24 cordova-js-src
-    -rw-r--r--   1 stevepodell  staff  69846 Jun 24 09:24 cordova.js
-    -rw-r--r--   1 stevepodell  staff   3110 Jun 25 13:51 cordova_plugins.js
-    lrwxr-xr-x   1 stevepodell  staff     52 Jun 25 14:52 css -> /Users/stevepodell/WebstormProjects/WebApp/build/css
-    lrwxr-xr-x   1 stevepodell  staff     52 Jun 25 14:52 img -> /Users/stevepodell/WebstormProjects/WebApp/build/img
-    lrwxr-xr-x   1 stevepodell  staff     64 Jun 25 14:52 index.html -> /Users/stevepodell/WebstormProjects/WeVoteCordova/www/index.html
-    drwxr-xr-x   3 stevepodell  staff     96 Jun 24 09:24 js
-    drwxr-xr-x  12 stevepodell  staff    384 Jun 24 09:36 plugins
-stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % 
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git pull upstream develop      
+    From https://github.com/wevote/WeVoteCordova
+     * branch            develop    -> FETCH_HEAD
+    Already up to date.
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % git push origin develop  
+    Everything up-to-date
+    stevepodell@Steves-MacBook-Pro-32GB-Oct-2109 WeVoteCordova % 
     ```
-        
-1.  You should test each one of those links, to make sure that they really point to where it needs to. It is much easier 
-to test first, rather than making a setup mistake and having to diagnose the problem later on.  Use `stat -L` to confirm 
-that the link points to a sizeable file (17856048 bytes in the case of bundle.js), if stat reports a file size of less than 
-100 bytes, then the link is probably incorrect.  Use `ls` to make sure that the links for directories, contain a few files.
-
-    ```
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ pwd
-    /Users/stevepodell/WebStormProjects/WeVoteCordova/platforms/ios/www
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ stat -L bundle.js
-    16777220 134276137 -rw-r--r-- 1 stevepodell staff 0 26625098 "Nov 11 14:12:26 2019" "Nov 10 16:50:44 2019" "Nov 11 14:11:21 2019" "Nov 10 16:50:43 2019" 4096 52008 0 bundle.js
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls css
-    bootstrap-social.css    loading-screen.css      main.css
-    bootstrap-social.css    loading-screen.css      main.css
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ ls img
-    Dale_McGrew-200x200.jpg                         global                                          mixed-rating-icon.svg                           thumbs-down-icon.svg                            we-vote-logo-horizontal-color-200x66.svg
-    WelcomeForVoters-Ballot-20190507.png            glyphicons-halflings-88-remove-circle.svg       no-position-icon.svg                            thumbs-up-color-icon.svg                        we-vote-logo-horizontal-color-dark-141x46.svg
-    avatar-generic.svg                              google-logo.svg                                 organization-icon.svg                           thumbs-up-icon.svg                              welcome
-    check-mark-v2-40x43.svg                         group-icon.svg                                  positions-icon-24-x-24.svg                      tools                                           x-close.png
-    down-arrow-color-icon.svg                       how-it-works                                    public-icon.svg                                 up-arrow-color-icon.svg
-    endorsement-extension                           issue-generic.svg                               share-icon.svg                                  vip-logo-1000x208.png
-    ffwd-logo.png                                   issue-photo-generic.svg                         thumbs-down-color-icon.svg                      vote_dot_org_logo-530x200.png
-    Steves-MacBook-Pro-32GB-Oct-2018:www stevepodell$ 
-    ```
-
-**You are now done with the iOS specific setup.**
+**That's it!  Cordova iOS Installed from scratch in about an hour.**
 
 
 # Platform specific Android setup (Everyone should install the Android software)
