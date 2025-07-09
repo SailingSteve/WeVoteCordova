@@ -36,7 +36,7 @@ function writeCordovaLibGradleWrapperProperties () {
   }
 
   // const newValue='distributionUrl=https\\://services.gradle.org/distributions/gradle-8.2.1-all.zip\n';
-  const newValue='distributionUrl=https://services.gradle.org/distributions/gradle-8.4-all.zip\n';
+  const newValue='distributionUrl=https://services.gradle.org/distributions/gradle-8.14.2-bin.zip\n';
   fs.writeFileSync(file, newValue, 'utf8');
   console.log('Created file: ', file);
 }
