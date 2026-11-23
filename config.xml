@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget
-        android-versionCode="20800100"
+        android-versionCode="20800200"
         id="org.wevote.cordova"
         namespace="org.wevote.cordova"
-        ios-CFBundleVersion="2.8.1.0"
-        version="2.8.1"
+        ios-CFBundleVersion="2.8.2.1"
+        version="2.8.2"
         xmlns:android="http://schemas.android.com/apk/res/android">
         xmlns="http://www.w3.org/ns/widgets"
         xmlns:cdv="http://cordova.apache.org/ns/1.0"
@@ -93,15 +93,16 @@
             <string>We Vote</string>
         </edit-config>
         <edit-config file="*-Info.plist" mode="merge" target="CFBundleVersion">
-            <string>2.8.1.0</string>
+            <string>2.8.2.1</string>
         </edit-config>
         <edit-config file="*-Info.plist" mode="merge" target="CFBundleShortVersionString">
-            <string>2.8.1</string>
+            <string>2.8.2</string>
         </edit-config>
         <edit-config file="*-Info.plist" mode="merge" target="LSApplicationCategoryType">
             <string>public.app-category.education</string>
         </edit-config>
         <preference name="deployment-target" value="15.0" />
+        <preference name="pods_ios_min_version" value="15.0" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <access origin="*" subdomains="true" />

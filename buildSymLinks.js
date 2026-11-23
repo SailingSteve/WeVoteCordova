@@ -1,5 +1,5 @@
-//Program to build the symlinks from WeVoteCordova www directories to the WebApp build directory
 /*
+Program to build the symlinks from WeVoteCordova www directories to the WebApp build directory
 
 To debug this node program ...
 node inspect buildSymLinks /Users/stevepodell/WebstormProjects/WebApp/build
@@ -127,40 +127,73 @@ const updateAndroidJson = () => {
   });
 };
 
-const updateXcodeProj = () => {
-  const originalFile = './platforms/ios/App.xcodeproj/project.pbxproj';
-  const saveOffFile = originalFile + '.previous';
-  console.log(`> Processed >> ${originalFile}`);
-  fs.rename(originalFile, saveOffFile, () => {
-    const rl = readline.createInterface({
-      input: fs.createReadStream(saveOffFile),
-      crlfDelay: Infinity,
-    });
-    const newProjectPbxproj = [];
-    let conf = 'Debug';
-    rl.on('line', (line) => {
-      if (line.includes('PRODUCT_NAME = "$(TARGET_NAME)";')) {
-        newProjectPbxproj.push(line);
-        newProjectPbxproj.push("\t\t\t\tSWIFT_VERSION = 4.2;");
-        console.log('> Hardcoded >> SWIFT_VERSION (' + conf + ') ::: to 4.2 in App.xcodeproj/project.pbxproj ');
-        conf = 'Release';
-      } else if (line.includes('IPHONEOS_DEPLOYMENT_TARGET')) {
-        newProjectPbxproj.push('IPHONEOS_DEPLOYMENT_TARGET = 15.0;');
-        console.log('> Hardcoded >> IPHONEOS_DEPLOYMENT_TARGET ::: to 15.0 in App.xcodeproj/project.pbxproj ');
-      } else {
-        newProjectPbxproj.push(line);
-      }
-    });
-    rl.on('close', () => {
-      const buildXproj = fs.openSync(originalFile, 'w');
-
-      newProjectPbxproj.forEach((txt) => {
-        // console.log(txt);
-        fs.writeSync(buildXproj, `${txt}\n`);
+const updateContactsXswift = () => {
+  // Nov 2026: Needed for the (archived and deprecated) "cordova-plugin-contacts-x-2025" to access Bridging-Header.h in the pre cordova-ios V8 location
+  const originalFiles = ['./platforms/ios/App/Plugins/cordova-plugin-contacts-x-2025/ContactsX.swift',
+    './plugins/cordova-plugin-contacts-x-2025/src/ios/ContactsX.swift',
+    './node_modules/cordova-plugin-contacts-x-2025/src/ios/ContactsX.swift',
+  ];
+  for (const originalFile of originalFiles) {
+    const saveOffFile = originalFile + '.previous';
+    console.log(`> Processed >> ${originalFile}`);
+    fs.rename(originalFile, saveOffFile, () => {
+      fs.readFile(saveOffFile, 'utf8', function (err, data) {
+        if (!data) {
+          console.log(`> ERROR processing >> ${originalFile} -- no data`);
+        } else {
+          console.log(`> Processed >> updateContactsXswift ${originalFile} CDVCommandStatus_OK ${('CDVCommandStatus_OK'.match(/in/gi) || []).length} times`);
+          data = data.replaceAll('CDVCommandStatus_OK', 'CDVCommandStatus.ok');
+          console.log(`> Processed >> updateContactsXswift ${originalFile} CDVCommandStatus_ERROR ${('CDVCommandStatus_ERROR'.match(/in/gi) || []).length} times`);
+          data = data.replaceAll('CDVCommandStatus_ERROR', 'CDVCommandStatus.error');
+          console.log(`> Processed >> updateContactsXswift ${originalFile} callbackId: self._callbackId ${('callbackId: self._callbackId'.match(/in/gi) || []).length} times`);
+          data = data.replaceAll('callbackId: self._callbackId)', 'callbackId: self._callbackId ?? "")');
+          console.log(`> Processed >> updateContactsXswift ${originalFile} callbackId: _callbackId ${('callbackId: _callbackId'.match(/in/gi) || []).length} times`);
+          data = data.replaceAll('callbackId: _callbackId)', 'callbackId: _callbackId ?? "")');
+          fs.writeFile(originalFile, data, 'utf8', () => {
+            console.log(`> Processed >> updateContactsXswift reworked deprecated swift syntax in ${originalFile}`);
+          });
+        }
       });
-      console.log(`> Updated >> updateXcodeProj hardcoded iOS Swift version in ${originalFile}`);
     });
-  });
+  };
+};
+
+const updateXcodeProj = () => {
+  const originalFiles = ['./platforms/ios/App.xcodeproj/project.pbxproj', './platforms/ios/Pods/Pods.xcodeproj/project.pbxproj']
+  for (const originalFile of originalFiles) {
+    const saveOffFile = originalFile + '.previous';
+    console.log(`> Processed >> ${originalFile}`);
+    fs.rename(originalFile, saveOffFile, () => {
+      const rl = readline.createInterface({
+        input: fs.createReadStream(saveOffFile),
+        crlfDelay: Infinity,
+      });
+      const newProjectPbxproj = [];
+      let conf = 'Debug';
+      rl.on('line', (line) => {
+        if (line.includes('PRODUCT_NAME = "$(TARGET_NAME)";')) {
+          newProjectPbxproj.push(line);
+          newProjectPbxproj.push("\t\t\t\tSWIFT_VERSION = 4.2;");
+          console.log('> Hardcoded >> SWIFT_VERSION (' + conf + ') ::: to 4.2 in ' + originalFile);
+          conf = 'Release';
+        } else if (line.includes('IPHONEOS_DEPLOYMENT_TARGET')) {
+          newProjectPbxproj.push('IPHONEOS_DEPLOYMENT_TARGET = 15.0;');
+          console.log('> Hardcoded >> IPHONEOS_DEPLOYMENT_TARGET ::: to 15.0 in ' + originalFile);
+        } else {
+          newProjectPbxproj.push(line);
+        }
+      });
+      rl.on('close', () => {
+        const buildXproj = fs.openSync(originalFile, 'w');
+
+        newProjectPbxproj.forEach((txt) => {
+          // console.log(txt);
+          fs.writeSync(buildXproj, `${txt}\n`);
+        });
+        console.log(`> Updated >> updateXcodeProj hardcoded iOS Swift version in ${originalFile}`);
+      });
+    });
+  }
 };
 
 // const patchFacebookConnectPluginJava = () => {
@@ -243,7 +276,7 @@ const updateXcodeProj = () => {
 
 
 const updateXcodePlist = () => {
-  // const originalFile = './platforms/ios/WeVote/WeVote-Info.plist';    // Needed for cordova-ios v7.0.0
+  // pre cordova_ios 8 const originalFile = './platforms/ios/WeVote/WeVote-Info.plist';    // Needed for cordova-ios v7.0.0
   const originalFile = './platforms/ios/App/App-Info.plist';
   const saveOffFile = originalFile + '.previous';
   console.log(`> Processed >> ${originalFile}`);
@@ -262,12 +295,10 @@ const updateXcodePlist = () => {
       } else if (line.includes('<key>NSMainNibFile</key>')) {
         // Do not push the line, ie delete it
         deleteNextLine = true;
-        // console.log('> deleted >><key>NSMainNibFile</key> in WeVote/WeVote-Info.plist');
         console.log('> deleted >><key>NSMainNibFile</key> in App/App-Info.plist');
       } else if (line.includes('<key>NSMainNibFile~ipad</key>')) {
         // Do not push the line, ie delete it
         deleteNextLine = true;
-        // console.log('> deleted >> <key>NSMainNibFile</key> in WeVote/WeVote-Info.plist');  // Needed for cordova-ios v7.0.0
         console.log('> deleted >> <key>NSMainNibFile</key> in App/App-Info.plist');
       } else if (line.includes('FACEBOOK_URL_SCHEME_SUFFIX_PLACEHOLDER</string>')) {
         newWeVoteInfoPlist.push(line.replace('FACEBOOK_URL_SCHEME_SUFFIX_PLACEHOLDER</string>', 'suffix</string>'));
@@ -497,6 +528,14 @@ To fix this temporarily until CocoaPods is updated, you can replace DT_TOOLCHAIN
   symlink(webAppPath + 'bundle.js.map', androidDir + 'bundle.js.map', 'file', err => console.log(err ? err : '> SymLink >> ln android bundle.js.map successful'));
   symlink(webAppPath + 'bundle.js.map', iosDir + 'bundle.js.map', 'file', err => console.log(err ? err : '> SymLink >> ln ios bundle.js.map successful'));
 
+  // Nov 2026: Needed for the (archived and deprecated) "cordova-plugin-contacts-x-2025" to access Bridging-Header.h in the pre cordova-ios V8 location
+  const symlinkPath = path.join(__dirname, 'platforms/ios/WeVote');
+  if (fs.existsSync(symlinkPath)) {
+    fs.unlinkSync(symlinkPath); // Removes the existing symlink or file
+  }
+  symlink(path.join(__dirname, 'platforms/ios/App'), symlinkPath,
+    'dir', err => console.log(err ? err : '> SymLink >> ln ios WeVote to App dir successful'));
+
   if (buildAll) {
     symlink(webAppPath + 'css', androidDir + 'css', 'dir', err => console.log(err ? err : '> SymLink >> ln android css successful'));
     symlink(webAppPath + 'css', iosDir + 'css', 'dir', err => console.log(err ? err : '> SymLink >> ln ios css successful'));
@@ -512,6 +551,7 @@ To fix this temporarily until CocoaPods is updated, you can replace DT_TOOLCHAIN
     updateBuildReleaseXCConfig();
     updateMainAndroidManifest();
     updateAndroidJson();
+    updateContactsXswift();
     copyGoogleServices();
     copyJQueryFile();
     writeCordovaLibGradleWrapperProperties();
